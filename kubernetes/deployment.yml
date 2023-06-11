@@ -1,20 +1,18 @@
 apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: django
-  labels:
-    app: django-app
+  name: django-app
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app.kubernetes.io/name: django
-      app.kubernetes.io/component: web
+      project: django-app
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: django
-        app.kubernetes.io/component: web
+        project: django-app
     spec:
       containers:
       - name: web
@@ -33,17 +31,11 @@ kind: Service
 metadata:
   name: django-service
   labels:
-    env: prod
+    app.kubernetes.io/component: controller
 spec:
   selector:
-    app.kubernetes.io/name: django
-    app.kubernetes.io/component: web
-  type: NodePort
-  externalIPs:
-  -  192.168.49.55
+    project: django-app
   ports: 
-  - name: http
-    port: 80
-    targetPort: 80
-    nodePort: 30036
+  - port: 80
     protocol: TCP
+    targetPort: 80
