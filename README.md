@@ -35,5 +35,6 @@ data:
   DEBUG: 'false'
   ALLOWED_HOSTS: star-burger.test
 ```
+- Примените созданный configMap `kubectl apply -f .\kubernetes\configmap.yml`
 - Примените все манифесты из папки kubernetes: `kubectl apply -f .\kubernetes\`
 - Откройте сайт http://star-burger.test/
