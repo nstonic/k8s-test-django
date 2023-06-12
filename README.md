@@ -17,33 +17,23 @@
 
 
 
-## Как запустить dev-версию
-
-Запустите базу данных:
-
-```shell-session
-docker-compose up
+## Как запустить
+- Установите [minikube](https://www.youtube.com/watch?v=WAIrMmCQ3hE&list=PLg5SS_4L6LYvN1RqaVesof8KAf-02fJSi&index=3) и запустите его: `minikube start`
+- Создайте в minikube образ приложения: `minikube image build -t django_app ./backend_main_django`
+- Создайте под с Postgres с помощью helm: `helm install django-db oci://registry-1.docker.io/bitnamicharts/postgresql`
+- Создайте [базу данных](https://medium.com/coding-blocks/creating-user-database-and-adding-access-on-postgresql-8bfcd2f4a91e)
+- С помощью команды `minikube ip` получите ip вашего кластера и пропишите его в файле hosts на домен `star-burger.test`
+- Создайте в директории kubernetes configmap.yml cо следующим манифестом:
 ```
-
-Запустите minikube:
-
-```shell-session
-minikube start
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: django-config
+data:
+  DATABASE_URL: [Формат записи](https://github.com/jacobian/dj-database-url#url-schema)
+  SECRET_KEY: 123456
+  DEBUG: 'false'
+  ALLOWED_HOSTS: star-burger.test
 ```
-
-Запустите билд образа:
-
-```shell-session
-minikube image build -t web .\backend_main_django\
-```
-
-Соберите переменные окружения в configmap:
-
-```shell-session
-kubectl create configmap django-config --from-env-file=.env
-```
-
-И наконец соберите кластер:
-```shell-session
-kubectl apply -f .\kubernetes\deployment.yml
-```
+- Примените все манифесты из папки kubernetes: `kubectl apply -f .\kubernetes\`
+- Откройте сайт http://star-burger.test/
