@@ -30,7 +30,7 @@ kind: ConfigMap
 metadata:
   name: django-config
 data:
-  DATABASE_URL: [Формат записи](https://github.com/jacobian/dj-database-url#url-schema)
+  DATABASE_URL: postgres://USER:PASSWORD@HOST:PORT/NAME
   SECRET_KEY: 123456
   DEBUG: 'false'
   ALLOWED_HOSTS: star-burger.test
