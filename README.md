@@ -19,7 +19,7 @@
 
 ## Как запустить
 - Установите [minikube](https://www.youtube.com/watch?v=WAIrMmCQ3hE&list=PLg5SS_4L6LYvN1RqaVesof8KAf-02fJSi&index=3) и запустите его: `minikube start`
-- Создайте в minikube образ приложения: `minikube image build -t django-app ./backend_main_django`
+- Загрузите в minikube образ приложения: `minikube image load nstonic/test_django_app:<выбранный тег>`. Все теги можно найти по [ссылке](https://hub.docker.com/r/nstonic/test_django_app/tags). Название тега соотвествует хешу коммитов в данном репозитории.
 - Создайте под с Postgres с помощью helm: `helm install django-db oci://registry-1.docker.io/bitnamicharts/postgresql`
 - Создайте [базу данных](https://medium.com/coding-blocks/creating-user-database-and-adding-access-on-postgresql-8bfcd2f4a91e)
 - С помощью команды `minikube ip` получите ip вашего кластера и пропишите его в файле hosts на домен `star-burger.test`
