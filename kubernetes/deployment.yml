@@ -19,7 +19,7 @@ spec:
         envFrom:
         - configMapRef:
             name: django-config
-        image: django-app
+        image: nstonic/test_django_app:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
