@@ -20,7 +20,7 @@
 
 
 ## Как запустить в кластере
-- Загрузите в minikube образ приложения: `minikube image load nstonic/test_django_app:<выбранный тег>`. Все теги можно найти по [ссылке](https://hub.docker.com/r/nstonic/test_django_app/tags). Название тега соотвествует хешу коммитов в данном репозитории.
+- В файле `.\kubernetes\deployment.yml` указан образ, с которого будут запускаться поды: `image: nstonic/test_django_app:latest`. Все теги можно найти по [ссылке](https://hub.docker.com/r/nstonic/test_django_app/tags). Название тега соотвествует хешу коммитов в данном репозитории.
 - Создайте под с Postgres с помощью helm: `helm install django-db oci://registry-1.docker.io/bitnamicharts/postgresql`
 - Создайте [базу данных](https://medium.com/coding-blocks/creating-user-database-and-adding-access-on-postgresql-8bfcd2f4a91e)
 - Создайте в директории kubernetes configmap.yml cо следующим манифестом:
