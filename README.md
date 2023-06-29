@@ -4,6 +4,8 @@
 
 Внутри конейнера Django запускается с помощью Nginx Unit, не путать с Nginx. Сервер Nginx Unit выполняет сразу две функции: как веб-сервер он раздаёт файлы статики и медиа, а в роли сервера-приложений он запускает Python и Django. Таким образом Nginx Unit заменяет собой связку из двух сервисов Nginx и Gunicorn/uWSGI. [Подробнее про Nginx Unit](https://unit.nginx.org/).
 
+[Рабочий сайт](https://edu-trusting-bartik.sirius-k8s.dvmn.org/admin/)
+
 
 ## Задайте переменные окружения в файл .env
 
@@ -17,18 +19,17 @@
 
 
 
-## Как запустить
-- Установите [minikube](https://www.youtube.com/watch?v=WAIrMmCQ3hE&list=PLg5SS_4L6LYvN1RqaVesof8KAf-02fJSi&index=3) и запустите его: `minikube start`
+## Как запустить в кластере
 - Загрузите в minikube образ приложения: `minikube image load nstonic/test_django_app:<выбранный тег>`. Все теги можно найти по [ссылке](https://hub.docker.com/r/nstonic/test_django_app/tags). Название тега соотвествует хешу коммитов в данном репозитории.
 - Создайте под с Postgres с помощью helm: `helm install django-db oci://registry-1.docker.io/bitnamicharts/postgresql`
 - Создайте [базу данных](https://medium.com/coding-blocks/creating-user-database-and-adding-access-on-postgresql-8bfcd2f4a91e)
-- С помощью команды `minikube ip` получите ip вашего кластера и пропишите его в файле hosts на домен `star-burger.test`
 - Создайте в директории kubernetes configmap.yml cо следующим манифестом:
 ```
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: django-config
+  namespace: edu-trusting-bartik
 data:
   DATABASE_URL: postgres://USER:PASSWORD@HOST:PORT/NAME
   SECRET_KEY: 123456
@@ -37,4 +38,4 @@ data:
 ```
 - Примените созданный configMap `kubectl apply -f .\kubernetes\configmap.yml`
 - Примените все манифесты из папки kubernetes: `kubectl apply -f .\kubernetes\`
-- Откройте сайт http://star-burger.test/
+- [Откройте сайт](https://edu-trusting-bartik.sirius-k8s.dvmn.org/admin/)
