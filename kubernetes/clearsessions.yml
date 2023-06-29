@@ -2,6 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: django-clearsession
+  namespace: edu-trusting-bartik
 spec:
   schedule: "0 0 * * *"
   startingDeadlineSeconds: 60

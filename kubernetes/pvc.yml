@@ -2,6 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: postgresql-pvc
+  namespace: edu-trusting-bartik
 spec:
   storageClassName: csi-ceph-hdd-gz1
   accessModes:
