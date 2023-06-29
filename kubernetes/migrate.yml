@@ -2,6 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: django-migrate
+  namespace: edu-trusting-bartik
 spec:
   ttlSecondsAfterFinished: 1
   template:
